@@ -1,4 +1,4 @@
-﻿# Study-Spring-Security
+﻿# ✍️ Study-Spring-Security
 공부 방식 : [인프런 강의 - 스프링부트 시큐리티 & JWT 강의 (최주호 강사님)](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0/dashboard) 를 참고한 실습
 
 ### 학습 내용
@@ -14,8 +14,7 @@
    create user 'mdy'@'%' identified by 'mdy1234';   -- mdy라는 ID, mdy1234라는 비밀번호의 계정 생성 (@'%'는 어디서든 접속 허용 (IP 제한 없음)을 의미)
 GRANT ALL PRIVILEGES ON *.* TO 'mdy'@'%';  -- 생성한 mdy 사용자에게 모든 DB, 모든 테이블에 대한 권한 부여
 create database studySpringSecurity;  -- 데이터베이스 studySpringSecurity 생성
-use security;    -- 방금 만든 studySpringSecurity 데이터베이스를 사용하겠다 선언
-   ```
+use security;    -- 방금 만든 studySpringSecurity 데이터베이스를 사용하겠다 선언```
 
 2. 프로젝트 세팅 (의존성)
 - Lombok: Getter/Setter, 생성자 등 반복 코드를 줄여주는 코드 자동 생성 라이브러리
