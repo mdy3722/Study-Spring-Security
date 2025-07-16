@@ -16,7 +16,7 @@
 create user 'mdy'@'%' identified by 'mdy1234';   -- mdy라는 ID, mdy1234라는 비밀번호의 계정 생성 (@'%'는 어디서든 접속 허용 (IP 제한 없음)을 의미)
 GRANT ALL PRIVILEGES ON *.* TO 'mdy'@'%';  -- 생성한 mdy 사용자에게 모든 DB, 모든 테이블에 대한 권한 부여
 create database studySpringSecurity;  -- 데이터베이스 studySpringSecurity 생성
-use security;    -- 방금 만든 studySpringSecurity 데이터베이스를 사용하겠다 선언
+use studySpringSecurity;    -- 방금 만든 studySpringSecurity 데이터베이스를 사용하겠다 선언
 ```
 
 **2. 프로젝트 세팅 (의존성)**
