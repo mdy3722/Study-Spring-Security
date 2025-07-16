@@ -1,11 +1,24 @@
 package StudySpringSecurity1.StudySpringSecurity1.controller;
 
+import StudySpringSecurity1.StudySpringSecurity1.entity.User;
+import StudySpringSecurity1.StudySpringSecurity1.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller   // view를 리턴
 public class IndexController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @GetMapping({"", "/"})
     public String index() {
         // 머스테치 기본폴더 src/main/resources/
@@ -29,18 +42,25 @@ public class IndexController {
     }
 
     // 시큐리티 설정이 별도로 없으면 이 매핑은 스프링시큐리티 해당주소로 낚아채짐
-    @GetMapping("/login")
-    public @ResponseBody String login() {
-        return "login";
+    @GetMapping("/loginForm")
+    public String login() {
+        return "loginForm";
     }
 
-    @GetMapping("/signup")
-    public @ResponseBody String signup() {
-        return "signup";
+    @GetMapping("/signupForm")
+    public String signupForm() {
+        return "signupForm";
     }
 
-    @GetMapping("/signupProc")
-    public @ResponseBody String signupProc() {
-        return "회원가입 완료";
+    @PostMapping("/signup")
+    public String signup(User user) {
+        System.out.println(user);
+        user.setRole("ROLE_USER");
+        String rawPassword = user.getPassword();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        user.setPassword(encPassword);
+        userRepository.save(user); // 근데 이러면 비밀번호가 1234 => 시큐리티로 로그인을 할 수 없음. 이유는 패스워드가 암호화가 안되어 있음
+        return "redirect:/loginForm";
     }
+
 }

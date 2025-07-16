@@ -11,16 +11,16 @@ spring:
   mustache:
     cache: false
 
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .mustache
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/studySpringSecurity?serverTimezone=Asia/Seoul
     username: mdy
     password: mdy1234
-
-  mvc:
-    view:
-      prefix: /templates/
-      suffix: .mustache
 
   jpa:
     hibernate:
