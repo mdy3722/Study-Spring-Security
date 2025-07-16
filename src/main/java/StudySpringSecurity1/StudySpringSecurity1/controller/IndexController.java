@@ -3,6 +3,8 @@ package StudySpringSecurity1.StudySpringSecurity1.controller;
 import StudySpringSecurity1.StudySpringSecurity1.entity.User;
 import StudySpringSecurity1.StudySpringSecurity1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,5 +64,19 @@ public class IndexController {
         userRepository.save(user); // 근데 이러면 비밀번호가 1234 => 시큐리티로 로그인을 할 수 없음. 이유는 패스워드가 암호화가 안되어 있음
         return "redirect:/loginForm";
     }
+
+    @Secured("ROLE_ADMIN")   // 특정 메소드 호출 시 해당 사용자가 특정 권한을 갖고 있어야 접근 허용 => 없으면 403
+    @GetMapping("/info")
+    public @ResponseBody String info() {
+        return "개인정보";
+    }
+
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN')")   // 얘는 특정 메소드가 실행되기 "직전"에 실행됨 => @Secured와 큰 차이는 없음. 표현식의 차이 + 더 복합 조건, 권한 체크 시 사용
+    // @PostAuthorize() // 메소드 호출 이후에 실행
+    @GetMapping("/data")
+    public @ResponseBody String data() {
+        return "데이터정보";
+    }
+
 
 }
