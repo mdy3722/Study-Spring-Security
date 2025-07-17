@@ -36,7 +36,11 @@ public class SecurityConfig {
                 .loginPage("/loginForm")
                 .loginProcessingUrl("/login")   // login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해준다.
                 .defaultSuccessUrl("/")  // /loginForm을 요청해서 로그인을 하면 메인페이지 이동 -> 특정 페이지에서 로그인을 하면 X
+        )
+        .oauth2Login(oauth2 -> oauth2
+                .loginPage("/loginForm")
         );
+
         return http.build();
     }
 
