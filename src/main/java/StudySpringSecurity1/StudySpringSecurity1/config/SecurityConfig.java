@@ -1,13 +1,12 @@
 package StudySpringSecurity1.StudySpringSecurity1.config;
 
+import StudySpringSecurity1.StudySpringSecurity1.config.oauth.PrincipalOauth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,6 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터체인에 등록이 된다.
 @EnableMethodSecurity(securedEnabled = true, prePostEnabled = true)    // secured 어노테이션 활성화, @PreAuthorize와 @PostAuthorize 어노테이션 활성화
 public class SecurityConfig {
+
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserSerivce;
 
     @Bean   // 해당 메서드의 리턴이 되는 오브젝트를 IoC로 등록해준다.
     public BCryptPasswordEncoder encodePwd() {
@@ -38,8 +40,11 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")  // /loginForm을 요청해서 로그인을 하면 메인페이지 이동 -> 특정 페이지에서 로그인을 하면 X
         )
         .oauth2Login(oauth2 -> oauth2
-                .loginPage("/loginForm")
-        );
+                .loginPage("/loginForm")   // 구글 로그인이 완료된 뒤의 후처리가 필요함 1. 코드받기(인증이 되었다는 것) -> 2. 액세스 토큰 받기(사용자 정보에 접근할 수 있는 권한이 생김) 3. 사용자 프로필 정보를 가져오고 4-1. 그 정보를 토대로 회원가입을 자동으로 진행시키기도 함, 또는 4-2. 추가적인 사용자 정보가 필요하다면 자동으로 회원가입을 시키는 것이 아니라 추가적인 회원가입 창이 나와야..
+                .userInfoEndpoint(userInfo -> userInfo
+                        .userService(principalOauth2UserSerivce)
+                )
+        );                                  // 구글 로그인이 완료가 되면 코드를 받는 것이 아니라 (액세스토큰+사용자 정보)를 한방에 받는다.
 
         return http.build();
     }

@@ -24,6 +24,10 @@ public class User {
 
     private String role;     // ROLE_USER, ROLE_ADMIN
 
+    // 일반 로그인 회원인지, oauth 로그인 회원인지 구분을 위해
+    private String provider;   // 들어갈 값 : google
+    private String providerId;    // 들어갈 값 : google_{sub값}
+
     @CreationTimestamp
     private Timestamp createDate;
 
