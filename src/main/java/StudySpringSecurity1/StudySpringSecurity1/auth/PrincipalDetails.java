@@ -9,21 +9,38 @@ package StudySpringSecurity1.StudySpringSecurity1.auth;
 // 시큐리티 세션 => Authentication 객체 저장 => 이때의 user 정보 타입은 UserDetails => UserDetails(PrincipalDetails)
 
 import StudySpringSecurity1.StudySpringSecurity1.entity.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
-public class PrincipalDetails implements UserDetails {
+@Data
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;
-
+    private Map<String, Object> attributes;
+    
+    // 일반 로그인할 때 생성되는 생성자
     public PrincipalDetails(User user) {
         this.user = user;
     }
 
+    // OAuth 로그인할 때 생성되는 생성자
+    public PrincipalDetails(User user,  Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
+    }
+
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
 
     // 해당 User의 권한을 리턴하는 곳
     @Override
@@ -64,5 +81,10 @@ public class PrincipalDetails implements UserDetails {
         // 우리 사이트에서 1년 동안 회원이 로그인을 안하면 휴먼계정으로 전환하는 정책이 있다면
         // user.getLoginDate()등을 가져와서 "현재시간-로그인시간" => 1년 초과하면 return false
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 }
