@@ -49,5 +49,5 @@ Spring 기반 애플리케이션의 인증(Authentication)과 인가(Authorizati
 ---
 
 ### 기타 정리
-[Spring Security 정리한 나의 벨로그](https://velog.io/@mdy3722/Spring-Security-%EC%A0%95%EB%A6%AC)
+[Spring Security 정리한 나의 벨로그](https://velog.io/@mdy3722/Spring-Security-%EC%A0%95%EB%A6%AC)  
 [Spring Security + Google OAuth2.0 실습 정리](https://velog.io/@mdy3722/Spring-Security-OAuth2-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%A4%EC%8A%B5)
