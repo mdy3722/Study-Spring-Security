@@ -5,8 +5,8 @@
 - 스프링 시큐리티의 동작 원리
   - 시큐리티 설정 및 권한 처리
 - 스프링 시큐리티 OAuth2.0
-  - 구글/페이스북/네이버 로그인 구현
-- 스프링 시큐리티 JWT 서버 구축
+  - 구글 소셜 로그인 구현
+  - OAuth 로그인 후처리, 자동 회원가입
 
 ---
 
@@ -27,6 +27,7 @@ use studySpringSecurity;    -- 방금 만든 studySpringSecurity 데이터베이
 - Spring Data JPA: 자바 ORM(Object Relational Mapping) 기반 데이터베이스 처리 라이브러리
 - MySQL Driver: MySQL 데이터베이스 연결을 위한 JDBC 드라이버
 - Spring Security: 인증 및 권한 관리 등 보안 관련 기능 제공
+- OAuth2 Client: OAuth 2.0 및 OpenID Connect를 기반으로 한 소셜 로그인, 외부 인증 서버 연동 
 
 ---
 
@@ -49,3 +50,4 @@ Spring 기반 애플리케이션의 인증(Authentication)과 인가(Authorizati
 
 ### 기타 정리
 [Spring Security 정리한 나의 벨로그](https://velog.io/@mdy3722/Spring-Security-%EC%A0%95%EB%A6%AC)
+[Spring Security + Google OAuth2.0 실습 정리](https://velog.io/@mdy3722/Spring-Security-OAuth2-Google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%8B%A4%EC%8A%B5)
